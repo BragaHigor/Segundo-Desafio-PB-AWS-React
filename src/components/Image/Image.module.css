@@ -1,0 +1,15 @@
+.image{
+    background: url('../../assets/img/Notebook.png');
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    height: 100vh;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.compass{
+    margin-top: 3.6rem;
+    height: 6.6rem;
+    width: 48.4rem;
+}

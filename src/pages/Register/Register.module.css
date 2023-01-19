@@ -1,0 +1,95 @@
+.all{
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #33383D 0%, #1C1D20 100%);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 50%;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    width: 50%;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+}
+
+h1{
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #E0E0E0;
+    margin-bottom: 1rem;
+}
+
+p{
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #E0E0E0;
+}
+
+
+.button{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+    margin-top: .7rem;
+}
+
+.labelError{
+    display: flex;
+    margin-left: 15.5rem;
+    color:#E9B425;
+    position: absolute;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.acessoLogin{
+    margin-left: 12rem;
+    margin-bottom: 1rem;
+}
+
+.labelLogin, .labelStrong{
+    color:#E0E0E0;
+    position: absolute;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.labelStrong:hover{
+    color:#E9B425;
+}
+
+.InputError{
+    color:#E9B425;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+
+    margin-left: 2rem;
+    height: 50%;
+}
+
+

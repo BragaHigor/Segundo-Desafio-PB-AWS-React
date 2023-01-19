@@ -1,0 +1,14 @@
+.btn {
+    width: 90%;
+    height: 67px;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, #FF2D04 0%, #C13216 100%);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 32px;
+    font-weight: 700;
+    font-style: normal;
+    cursor: pointer;
+}

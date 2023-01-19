@@ -1,0 +1,36 @@
+.inputContainer{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input {
+    outline: none;
+    width: 80%;
+    margin: 0;
+    height: 6rem;
+    box-sizing: border-box;
+    background: #26292C;
+    border: .1rem solid #FFFFFF;
+    border-radius: 5rem;
+    color: #E0E0E0;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 2.5rem ;
+}
+
+.input::placeholder{
+    color: #E0E0E0;
+}
+
+.label{
+    color: #E0E0E0;
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    width: 20%;
+}

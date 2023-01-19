@@ -1,0 +1,111 @@
+.all{
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #33383D 0%, #1C1D20 100%);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 50%;
+ 
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.8rem;
+    height: 80%;
+    width: 40%;
+   
+}
+
+.text{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    margin-bottom: 20rem;
+}
+
+h1{
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #E0E0E0;
+    margin-bottom: 1rem;
+}
+
+p{
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #E0E0E0;
+}
+
+.Login{
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #E0E0E0;
+    align-items: flex-start;
+    text-align: start;
+    margin-bottom: 2rem;
+}
+
+.button{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+    margin-top: 4rem;
+}
+
+.labelError{
+    display: flex;
+    margin-left: 7rem;
+    margin-top: 1rem;
+    width: 24rem;
+    color:#E9B425;
+    position: absolute;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.acessoRegister{
+    margin-left: 9rem;
+}
+
+.labelRegister, .labelStrong{
+    color:#E0E0E0;
+    position: absolute;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.labelStrong:hover{
+    color:#E9B425;
+}
+
+.inputUserName, .inputPassword{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.iconUser,
+.iconPassword{
+    width: 6%;
+    transition: 0.5s ease-in-out;
+    margin-left: 1.5rem;
+}
