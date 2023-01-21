@@ -31,7 +31,7 @@
     margin-bottom: 3rem;
 }
 
-h1{
+.title{
     font-size: 6rem;
     font-style: normal;
     font-weight: 400;
@@ -39,7 +39,7 @@ h1{
     margin-bottom: 1rem;
 }
 
-p{
+.paragrafo{
     font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
@@ -65,17 +65,19 @@ p{
 }
 
 .acessoLogin{
-    margin-left: 12rem;
+    margin-left: 11rem;
     margin-bottom: 1rem;
 }
 
 .labelLogin, .labelStrong{
+    display: flex;
     color:#E0E0E0;
     position: absolute;
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
     text-decoration: none;
+    width: 15rem;
 }
 
 .labelStrong:hover{
@@ -87,7 +89,6 @@ p{
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
-
     margin-left: 2rem;
     height: 50%;
 }

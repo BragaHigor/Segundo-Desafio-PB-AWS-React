@@ -49,8 +49,8 @@ const Login = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.text}>
-            <h1>Welcome,</h1>
-            <p>To continue browsing safely, log in to the network.</p>
+            <h1 className={styles.title}>Welcome,</h1>
+            <p className={styles.paragrafo}>To continue browsing safely, log in to the network.</p>
           </div>
           <label className={styles.Login}>Login</label>
           <div className={styles.inputUserName}>
@@ -60,7 +60,6 @@ const Login = () => {
               value={email}
               onChange={(e) => [setEmail(e.target.value), setError('')]}
             />
-            
             {/* <div className={styles.icons}> */}
               <img className={styles.iconUser} src={iconUser} alt="Logo User" />
             {/* </div> */}
@@ -85,7 +84,7 @@ const Login = () => {
               <p className={styles.labelRegister}>
                 Don't have an account?
                 <span>
-                  <Link to='/register' className={styles.labelStrong}>&nbsp;Register</Link>
+                  <Link to='/register' className={styles.labelStrong}>&nbsp;Register here</Link>
                 </span>
               </p>
             </div>

@@ -29,8 +29,14 @@ export const AuthProvider = ({ children }) => {
 
         if(hasUser?.length) {
             if(hasUser[0].email === email && hasUser[0].password === password){
+                
                 const token = Math.random().toString(36).substring(2)
-                localStorage.setItem('user_token', JSON.stringify({email, token}))
+
+                const city = hasUser[0].city
+                const country = hasUser[0].country
+
+
+                localStorage.setItem('user_token', JSON.stringify({email, token, country, city}))
                 setUser({email, password})
 
                 return
@@ -44,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const register = (email, password) => {
+    const register = (email, password, country, city) => {
 
         const usersStorage = JSON.parse(localStorage.getItem('users_db'))
 
@@ -58,11 +64,11 @@ export const AuthProvider = ({ children }) => {
 
         if(usersStorage) {
 
-            newUser = [...usersStorage, {email, password}]
+            newUser = [...usersStorage, {email, password, country, city}]
 
         } else {
             
-            newUser = [{email, password}]
+            newUser = [{email, password, country, city}]
             
         }
 

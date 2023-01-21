@@ -36,7 +36,7 @@
     margin-bottom: 20rem;
 }
 
-h1{
+.title{
     font-size: 6rem;
     font-style: normal;
     font-weight: 400;
@@ -44,7 +44,7 @@ h1{
     margin-bottom: 1rem;
 }
 
-p{
+.paragrafo{
     font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
@@ -70,9 +70,9 @@ p{
 
 .labelError{
     display: flex;
-    margin-left: 7rem;
+    margin-left: 2.5rem;
     margin-top: 1rem;
-    width: 24rem;
+    width: 50rem;
     color:#E9B425;
     position: absolute;
     font-size: 1.2rem;
@@ -81,16 +81,19 @@ p{
 }
 
 .acessoRegister{
-    margin-left: 9rem;
+    margin-left: 7rem;
+    
 }
 
 .labelRegister, .labelStrong{
+    display: flex;
     color:#E0E0E0;
     position: absolute;
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
     text-decoration: none;
+    width: 13rem;
 }
 
 .labelStrong:hover{

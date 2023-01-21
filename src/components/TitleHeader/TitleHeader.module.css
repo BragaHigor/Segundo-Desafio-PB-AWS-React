@@ -1,0 +1,28 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #000;
+    width: 65rem;
+    height: 7rem;
+    border-radius: 0px 14px 15px 0px;
+}
+
+.title{
+    margin-left: 2rem;
+}
+
+.h1{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #FFFFFF;
+    margin-bottom: .5rem;
+}
+
+.paragrafo{
+    font-style: normal;
+    font-weight: 100;
+    font-size: 1.6rem;
+    color: #FFFFFF;
+}

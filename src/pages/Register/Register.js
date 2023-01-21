@@ -67,8 +67,6 @@ const Register = () => {
 
       return setError('Fill in all fields')
     }
-      //RETORNA ERRO CASO A CONFIRMAÇÃO DE SENHA FOR DIFERENTE DA SENHA
-    
 
     //VALIDA SE OS INPUTS ESTÃO CORRETOS DE ACORDO COM O REGEX
     if (!validateFirstName.test(firstName)) {
@@ -108,9 +106,11 @@ const Register = () => {
       setInputPasswordErr(false);
     }
 
-  if (password !== passwordConf) {
+  //RETORNA ERRO CASO A CONFIRMAÇÃO DE SENHA FOR DIFERENTE DA SENHA
+    if (password !== passwordConf) {
     return setError('Passwords must be the same')
-  }
+    }
+
     //SE TUDO ESTIVER OK ELE CADASTRA O USUÁRIO
     if (
       firstName &&
@@ -132,8 +132,8 @@ const Register = () => {
 
     }
 
-    // //DADOS DO USUÁRIO SALVO NO LOCALSTORAGE
-    const res = register(email, password)
+    // //DADOS DO USUÁRIO SALVO NO LOCALSTORAGE E CADASTRO DO USUÁRIO
+    const res = register(email, password, country, city )
 
     if (res) {
       setError(res)
@@ -143,12 +143,6 @@ const Register = () => {
     //REDIRECIONAMENTO PARA TELA DE LOGIN
     navigate('/')
 
-    // //CADASTRO DO USUÁRIO
-    // register(email, password)
-
-    // //REDIRECIONAMENTO PARA TELA DE LOGIN
-    // navigate('/')
-
   };
 
   return (
@@ -156,8 +150,8 @@ const Register = () => {
       <div className={styles.container}>
         <form className={styles.content}>
           <div className={styles.text}>
-            <h1>Welcome,</h1>
-            <p>Please, register to continue</p>
+            <h1 className={styles.title}>Welcome,</h1>
+            <p className={styles.paragrafo}>Please, register to continue</p>
           </div>
           <Input
             Text='first name'
@@ -168,7 +162,7 @@ const Register = () => {
             onChange={(e) => [setFirstName(e.target.value), setError('')]}
           />
           <div>
-          {inputFirstNameErr && <p className={styles.InputError}>Por favor digete um nome valido!</p>}
+          {inputFirstNameErr && <p className={styles.InputError}>Please add a valid name!</p>}
           </div>
           <Input
             Text='last name'
@@ -179,7 +173,7 @@ const Register = () => {
             onChange={(e) => [setLastName(e.target.value), setError('')]}
           />
           <div>
-          {inputLastNameErr && <p className={styles.InputError}>Por favor digete um sobrenome valido!</p>}
+          {inputLastNameErr && <p className={styles.InputError}>Please add a valid last name!</p>}
           </div>
           <InputDate
             Text='birth date'
@@ -201,7 +195,7 @@ const Register = () => {
             onChange={(e) => [setCountry(e.target.value), setError('')]}
           />
           <div>
-          {inputCountryErr && <p className={styles.InputError}>Por favor digete uma cidade valida!</p>}
+          {inputCountryErr && <p className={styles.InputError}>Please add a valid country!</p>}
           </div>
           <Input
             Text='City'
@@ -212,7 +206,7 @@ const Register = () => {
             onChange={(e) => [setCity(e.target.value), setError('')]}
           />
           <div>
-          {inputCityErr && <p className={styles.InputError}>Por favor digete uma cidade valida!</p>}
+          {inputCityErr && <p className={styles.InputError}>Please add a valid city!</p>}
           </div>
           <Input
             Text='e-mail'
@@ -223,7 +217,7 @@ const Register = () => {
             onChange={(e) => [setEmail(e.target.value), setError('')]}
           />
           <div>
-          {inputEmailErr && <p className={styles.InputError}>Por favor digete um email valido!</p>}
+          {inputEmailErr && <p className={styles.InputError}>Please add a valid email!</p>}
           </div>
           <Input
             Text='password'
@@ -234,7 +228,7 @@ const Register = () => {
             onChange={(e) => [setPassword(e.target.value), setError('')]}
           />
           <div>
-          {inputPassordErr && <p className={styles.InputError}>Por favor digete um senha valido!</p>}
+          {inputPassordErr && <p className={styles.InputError}>Please add a strong password!</p>}
           </div>
           <Input
             Text='password'
@@ -253,7 +247,7 @@ const Register = () => {
           <p className={styles.labelLogin}>
             Already have an account?
             <span>
-              <Link to='/' className={styles.labelStrong}>&nbsp;Access</Link>
+              <Link to='/' className={styles.labelStrong}>&nbsp;Access here</Link>
             </span>
           </p>
         </div>

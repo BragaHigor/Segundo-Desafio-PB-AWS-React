@@ -1,0 +1,21 @@
+.relogio{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.time{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 4rem;
+    color: #3B3E45;
+}
+
+.date{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    color: #3B3E45;
+}
