@@ -1,10 +1,6 @@
 //CSS
 import styles from '../Login/Login.module.css'
 
-//image
-import iconPassword from '../../assets/img/icon-password.svg'
-import iconUser from '../../assets/img/icon-user.svg'
-
 //router
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -15,13 +11,16 @@ import Image from '../../components/Image/Image'
 
 //hooks
 import useAuth from '../../hooks/useAuth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const [iconPassword, setIconPassword] = useState(false)
+  const [iconUser, setIconUser] = useState(false)
 
   const { login } = useAuth();
 
@@ -44,6 +43,24 @@ const Login = () => {
 
   }
 
+  useEffect(() => {
+
+    if(email.length > 0){
+      setIconUser(true)
+    }
+
+  },[handleLogin, email])
+
+
+  useEffect(() => {
+
+    if(password.length > 0){
+      setIconPassword(true)
+    }
+
+  },[handleLogin, password])
+
+
   return (
     <div className={styles.all}>
       <div className={styles.container}>
@@ -59,10 +76,11 @@ const Login = () => {
               placeholder='user name'
               value={email}
               onChange={(e) => [setEmail(e.target.value), setError('')]}
+              icon={"iconUser"}
+              putInside={iconUser}
+              onFocus={() => {setIconUser(true)}}
+              onBlur={ () => {if(email.length === 0){setIconUser(false)}}}
             />
-            {/* <div className={styles.icons}> */}
-              <img className={styles.iconUser} src={iconUser} alt="Logo User" />
-            {/* </div> */}
           </div>
           <div className={styles.inputPassword}>
           <InputLogin
@@ -70,16 +88,17 @@ const Login = () => {
             placeholder='password'
             value={password}
             onChange={(e) => [setPassword(e.target.value), setError('')]}
+            icon={"iconPassword"}
+            putInside={iconPassword}
+            onFocus={() => {setIconPassword(true)}}
+            onBlur={ () => {if(password.length === 0){setIconPassword(false)}}}
           />
-          {/* <div className={styles.icons}> */}
-            <img className={styles.iconPassword} src={iconPassword} alt="Logo Password" />
-          {/* </div> */}
           </div>
           <div className={styles.error}>
             <label className={styles.labelError}>{error}</label>
           </div>
           <div className={styles.button}>
-            <Button Text='Entrar' onClick={handleLogin} />
+            <Button Text='Log in' onClick={handleLogin} />
             <div className={styles.acessoRegister}>
               <p className={styles.labelRegister}>
                 Don't have an account?

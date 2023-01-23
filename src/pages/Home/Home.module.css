@@ -1,19 +1,335 @@
+/* PADRÃO */
 .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 85vh;
+    background: #FBFBFB;
+    background: url('../../assets/img/LogoUOL.svg');
+    background-size: 600px;
+    background-repeat: no-repeat;
+    background-position: top 250px right 0px;
+}
+
+/* 1920 x 1080 */
+/* .container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 84.9vh;
+    background: #FBFBFB;
+    background: url('../../assets/img/LogoUOL.svg');
+    background-size: 700px;
+    background-repeat: no-repeat;
+    background-position: top 280px right 0px;
+} */
+
+
+.todo {
+    width: 100%;
+}
+
+/* HEADER DO TODO */
+
+.todoHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3.5rem;
+    margin-left: 2.4rem;
+    margin-right: 2.3rem;
+}
+
+.allInput{
+    display: flex;
+    width: 40.4%;
+    justify-content: space-between;
+}
+
+.inputTextHeader {
+    outline: none;
+    box-sizing: border-box;
+    width: 391px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #FECE00;
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    padding-left: 1.5rem;
+}
+
+.inputDayHeader {
+    outline: none;
+    box-sizing: border-box;
+    width: 240px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #FECE00;
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.inputTimeHeader {
+    background-color: violet;
+    outline: none;
+    box-sizing: border-box;
+    width: 120px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #FECE00;
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.buttonHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 23%;
+}
+
+.buttonAdd, .buttonDeleteAll {
+    width: 200px;
+    height: 44px;
+    padding: 10px 12px;
+    gap: 4px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.buttonAdd {
+    background: #00BA88;
+}
+
+.buttonDeleteAll {
+    background: #FF3D1F;
+}
+
+/* ----------------------------------- */
+
+
+/* FILTROS */
+
+.buttonFiltros {
+    display: flex;
+    justify-content: space-between;
+    width: 90.2%;
+    height: 4rem;
+    margin-top: 2.3rem;
+    margin-right: 4.7rem;
+    margin-left: 12.5rem;
+}
+
+.buttonMonday,.buttonTuesday,.buttonWednesday,
+.buttonThursday,.buttonFriday, .buttonSaturday, 
+.buttonSunday {
+    width: 24.5rem;
+    height: 3.3rem;
+    box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+    border-radius: 9px 9px 0px 0px;
+    font-style: normal;
+    font-family: 'Mulish';
+    font-weight: 600;
+    font-size: 2rem;
+    border: none;
+    text-align: start;
+    cursor: pointer;
+    transition : 1200ms;
+}
+
+.buttonMonday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonMonday {
+    background: #FF0024;
+}
+
+.buttonTuesday {
+    background: #FF8000;
+}
+
+.buttonTuesday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonWednesday {
+    background: #FFCE00;
+}
+
+.buttonWednesday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonThursday {
+    background: #fe4b65;
+}
+
+.buttonThursday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonFriday {
+    background: #FDA54B;
+}
+
+.buttonFriday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonSaturday {
+    background: #FEDB4B;
+}
+
+.buttonSaturday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+.buttonSunday {
+    background: #FD7E8F
+}
+
+.buttonSunday:hover{
+    transition : 1000ms;
+    width: 35rem; 
+}
+
+/* ----------------------------------- */
+
+
+/* TEXT TIME */
+
+.textTime {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    max-height: 100%;
-    background: #E5E5E5;;
+    background: #FFFFFF;
+    width: 85px;
+    height: 75px;
+    box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 17px;
+    color: #3B3E45;
+    margin-left: 2.4rem;
 }
 
 
-.titulo{
-    color: #000;
-    font-size: 10rem;
+/* ----------------------------------- */
+
+/* SCROLL */
+*::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 50px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #dcdfe3;
+    border-radius: 100px;
+    border: 4px solid #ffffff;
+  }
+
+/* PADRÃO */
+.scrollTask{
+    margin-top: .5rem;
+    width: 99.5%;
+    overflow-y: scroll;
+    height: 60vh;
 }
 
+/* 1920x1080 */
+/* .scrollTask{
+    margin-top: .5rem;
+    width: 99.3%;
+    overflow-y: scroll;
+    height: 63.5vh;
+} */
 
-.taskContainer.doubleTime p{
-    text-decoration: line-through;
+
+/* ----------------------------------- */
+
+/* TO DO LIST */
+
+.taskContainer {
+    display: flex;
+    max-width: 100%;
+    justify-content: start;
 }
+
+.task {
+    display: flex;
+    margin-top: 1.4rem;
+    width: 512px;
+    height: 85px;
+    background: linear-gradient(112.83deg, rgba(228, 240, 248, 0.42) 0%, rgba(255, 255, 255, 0.336) 110.84%);
+    border: 1px solid #FFFFFF;
+    box-shadow: 0px 2px 5.5px rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(10.5px);
+    margin-left: 1.7rem;
+    border-radius: 15px;
+}
+
+.taskTitle {
+    margin-top: 1.2rem;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    width: 81.5%;
+    height: 80%;
+    word-wrap: break-word;
+    margin-left: 1.3rem;
+}
+
+.buttonDeleteTask {
+    position: absolute;
+    width: 57px;
+    height: 25px;
+    background: #FF3D1F;
+    border-radius: 4px;
+    top: .6rem;
+    right: .7rem;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+}
+
+/* ----------------------------------- */
+

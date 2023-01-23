@@ -14,7 +14,6 @@
     flex-direction: column;
     height: 100vh;
     width: 50%;
- 
 }
 
 .content{
@@ -24,7 +23,6 @@
     gap: 1.8rem;
     height: 80%;
     width: 40%;
-   
 }
 
 .text{
@@ -70,7 +68,7 @@
 
 .labelError{
     display: flex;
-    margin-left: 2.5rem;
+    margin-left: 1rem;
     margin-top: 1rem;
     width: 50rem;
     color:#E9B425;

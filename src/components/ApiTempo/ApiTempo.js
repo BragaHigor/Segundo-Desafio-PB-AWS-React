@@ -58,7 +58,7 @@ const ApiTempo = () => {
                         <img src={iconTemperature} />
                     </div>
                     <div>
-                        <p className={styles.temperatura}>{weatherForecast.current.temp_c}°</p>
+                        <p className={styles.temperatura}>{parseInt(weatherForecast.current.temp_c)}°</p>
                         <label className={styles.labelError}>{error}</label>
                     </div>
                 </div>

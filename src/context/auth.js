@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
             } 
 
         } else {
-            return 'User not found'
+            return 'Wow, invalid username or password. Please, try again!'
         }
     }
 
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         const hasUser = usersStorage?.filter((user) => user.email === email)
 
         if (hasUser?.length) {
-            return 'An account with that email already exists, try another one'
+            return 'E-mail already registered'
         }
 
         let newUser

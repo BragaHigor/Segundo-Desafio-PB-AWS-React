@@ -1,7 +1,10 @@
 //CSS
 import styles from '../InputLogin/InputLogin.module.css'
 
-const InputLogin = ({ Text, type, placeholder, value, onChange }) => {
+//components
+import IconLogin from '../InputLogin/IconLogin'
+
+const InputLogin = ({ Text, type, placeholder, value, onChange, icon, putInside, onFocus, onBlur }) => {
     return (
         <div className={styles.inputContainer}>
             <label className={styles.label}>{Text}</label>
@@ -10,6 +13,12 @@ const InputLogin = ({ Text, type, placeholder, value, onChange }) => {
                 onChange={onChange}
                 type={type}
                 placeholder={placeholder}
+                onFocus={onFocus}
+                onBlur={onBlur}
+            />
+            <IconLogin 
+                icon={icon}
+                putInside={putInside}
             />
         </div>
     )

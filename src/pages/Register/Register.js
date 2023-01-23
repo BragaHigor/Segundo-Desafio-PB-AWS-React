@@ -147,6 +147,7 @@ const Register = () => {
 
   return (
     <div className={styles.all}>
+      
       <div className={styles.container}>
         <form className={styles.content}>
           <div className={styles.text}>
