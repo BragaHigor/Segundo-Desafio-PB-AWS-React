@@ -27,9 +27,7 @@ const Home = () => {
   const [copyAllTask, setCopyAllTask] = useState([])
   const [selectDay, setSelectDay] = useState('')
   const [arrayWeek, setArrayWeek] = useState('')
-
   const [showLoading, setShowLoading] = useState(false)
-
 
   //LOCALSTORAGE TOKEN
   const userToken = localStorage.getItem('token_API')
@@ -146,6 +144,7 @@ const Home = () => {
     .then((response)=>{
 
       renderTaskSubmit()
+      setArrayWeek(selectDay)
       console.log(response)
 
       toast.warn('The task you chose has been deleted', {
@@ -200,7 +199,9 @@ const Home = () => {
 
     .then((response)=>{
       renderTaskSubmit()
+      setArrayWeek(selectDay)
       console.log(response)
+      
       toast.warn('Tasks for the day you selected have been deleted', {
         position: "top-right",
         autoClose: 2500,
@@ -289,8 +290,6 @@ const Home = () => {
     }
 
     setTask('')
-    
-    setDay('')
 
     createTaskSubmit()
 
