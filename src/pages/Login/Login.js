@@ -1,6 +1,13 @@
 //CSS
 import styles from '../Login/Login.module.css'
 
+//toastify
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+//axios
+import http from '../../server/http'
+
 //router
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,8 +17,8 @@ import Button from "../../components/Button/Button"
 import Image from '../../components/Image/Image'
 
 //hooks
-import useAuth from '../../hooks/useAuth'
 import { useEffect, useState } from 'react'
+
 
 const Login = () => {
 
@@ -22,26 +29,71 @@ const Login = () => {
   const [iconPassword, setIconPassword] = useState(false)
   const [iconUser, setIconUser] = useState(false)
 
-  const { login } = useAuth();
-
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const loginSubmit = async () => {
+
+    await http({
+      method:'post',
+      url: 'users/sign-in',
+      data: {
+        email,
+        password
+      }
+    }) 
+
+    .then((response) => {
+      console.log(response)
+
+      setTimeout(() => {
+        navigate('/home')
+      }, 2300)
+      
+      localStorage.setItem("city_API", JSON.stringify(response.data.user.city))
+      localStorage.setItem("country_API", JSON.stringify(response.data.user.country))
+      localStorage.setItem("token_API", JSON.stringify(response.data.token))
+      
+      toast.success('Access released', {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+
+    })
+
+    .catch((error) => {
+      console.log(error)
+      toast.error('Wrong password or email', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    })
+  }
+
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
     if (!email | !password) {
       setError('Fill in all fields');
       return
+    } else {
+      loginSubmit()
     }
 
-    const res = login(email, password)
-
-    if (res) {
-      setError(res)
-      return
-    }
-
-    navigate('/home')
-
-  }
+  } 
+  
 
   useEffect(() => {
 
@@ -62,9 +114,11 @@ const Login = () => {
 
 
   return (
+    <>
+    <ToastContainer />
     <div className={styles.all}>
       <div className={styles.container}>
-        <div className={styles.content}>
+        <form className={styles.content} onSubmit={handleLogin}>
           <div className={styles.text}>
             <h1 className={styles.title}>Welcome,</h1>
             <p className={styles.paragrafo}>To continue browsing safely, log in to the network.</p>
@@ -108,10 +162,11 @@ const Login = () => {
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </div>
       <Image />
     </div>
+    </>
   )
 }
 

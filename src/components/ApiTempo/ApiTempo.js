@@ -13,10 +13,12 @@ const ApiTempo = () => {
     const apiKey = '52244db5a4014378a38153132232001'
 
     //Dados LocalStorage
-    const userLogado = localStorage.getItem('user_token')
-    const userLogadoObj = JSON.parse(userLogado)
-    const city = userLogadoObj?.city
-    const country = userLogadoObj?.country
+    const userCity = localStorage.getItem('city_API')
+    const city = JSON.parse(userCity)
+    
+    const userCountry = localStorage.getItem('country_API')
+    const country = JSON.parse(userCountry)
+   
 
     //PARAMETROS API
     const [weatherForecast, setWeatherForecast] = useState(null)
@@ -43,7 +45,7 @@ const ApiTempo = () => {
 
     useEffect(() => {
         getWeatherData()
-    }, [])
+    },[userCity, userCountry])
 
     return (
 

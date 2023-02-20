@@ -11,30 +11,235 @@ import 'react-toastify/dist/ReactToastify.css'
 
 //components
 import Navbar from '../../components/Navbar/Navbar'
+import Loading from '../../components/Loading/Loading'
 
 //hooks
 import { useState, useEffect } from 'react'
 
+//axios
+import http from '../../server/http'
 
 const Home = () => {
 
-  const [day, setDay] = useState(1)
-  const [hour, setHour] = useState(1)
-
+  const [day, setDay] = useState('monday')
   const [task, setTask] = useState('')
-  const [allTask, setAllTask] = useState(JSON.parse(localStorage.getItem('db_task')) || [])
-
-  const [reload, setReload] = useState(false)
-
+  const [taskAPI, setTaskAPI] = useState([])
   const [copyAllTask, setCopyAllTask] = useState([])
-  
+  const [selectDay, setSelectDay] = useState('')
+  const [arrayWeek, setArrayWeek] = useState('')
+
+  const [showLoading, setShowLoading] = useState(false)
+
+
+  //LOCALSTORAGE TOKEN
+  const userToken = localStorage.getItem('token_API')
+  const token = JSON.parse(userToken)
+
+  //API POST
+  const createTaskSubmit = async () => {
+
+    setShowLoading(true)
+
+    await http({
+      method:'post',
+      url: 'events',
+      data: {
+        description: task,
+        dayOfWeek: day,
+      },
+      headers: {
+        authorization: `bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }) 
+
+    .then((response) => {
+
+      renderTaskSubmit()
+      console.log(response.data, 'ENTROU')
+    })
+
+    .catch((error) => {
+      console.log(error)
+      toast.error('Error, try again later!', {
+        className: "error-toast",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    })
+
+    .finally(() => {
+      setShowLoading(false)
+    })
+
+  }
+
+  //API GET
+  const renderTaskSubmit = async () => {
+
+    setShowLoading(true)
+
+    await http({
+      method:'get',
+      url: 'events',
+      headers: {
+        authorization: `bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }) 
+
+    .then((response)=>{
+
+      setTaskAPI(response.data.events)
+      filterDay(day, response.data.events)
+
+    })
+
+    .catch((error) => {
+      console.log(error)
+      toast.error('Error or try to render task!', {
+        className: "error-toast",
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    })
+
+    .finally(() => {
+      setShowLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    renderTaskSubmit()
+  },[])
+
+
+  //API DELETE TASK ESPECIFICA
+  const deleteSelectTaskSubmit = async (id) => {
+
+    setShowLoading(true)
+
+    await http({
+      method:'delete',
+      url: `events/${id}`,
+      headers: {
+        authorization: `bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }) 
+
+    .then((response)=>{
+
+      renderTaskSubmit()
+      console.log(response)
+
+      toast.warn('The task you chose has been deleted', {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      
+    })
+
+    .catch((error) => {
+      console.log(error)
+      toast.error('Error or trying to delete task!', {
+        className: "error-toast",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+      
+    })
+
+    .finally(() => {
+      setShowLoading(false)
+    })
+
+  }
+
+  //API DELETE TODAS AS TASKS
+  const deleteAllTaskSubmit = async () => {
+
+    setShowLoading(true)
+
+    await http({
+      method:'delete',
+      url: `events?dayOfWeek=${arrayWeek}`,
+      headers: {
+        authorization: `bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }) 
+
+    .then((response)=>{
+      renderTaskSubmit()
+      console.log(response)
+      toast.warn('Tasks for the day you selected have been deleted', {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    })
+
+    .catch((error) => {
+      console.log(error)
+      toast.error('Error or trying to delete task!', {
+        className: "error-toast",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    })
+
+    .finally(() => {
+      setShowLoading(false)
+    })
+
+  }
+
   //VERIFICA SE A TASK PODE SER CRIADA
   function handleCreateTask() {
 
     if (
       !task |
-      !day |
-      !hour
+      !day
     ) {
 
       return toast.error('Complete all fields', {
@@ -64,7 +269,7 @@ const Home = () => {
 
     }
 
-    if (day === 1) {
+    if (day === '') {
 
       return toast.error('Select a day of the week', {
         position: "top-right",
@@ -79,42 +284,17 @@ const Home = () => {
 
     }
 
-    if (hour === 1) {
-
-      return toast.error('Add a time', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+    if (task && day) {
 
     }
-
-    if (hour && day && hour) {
-
-    }
-
-    //CRIA UMA NOVA TASK
-    const idRandom = (num) => Math.floor(Math.random() * num)
-
-    const newTask = { id: idRandom(9999), title: task, group: day, date: hour }
-
-    setAllTask([...allTask, newTask])
 
     setTask('')
-    setDay(1)
-    setHour(1)
+    
+    setDay('')
 
-    setCopyAllTask(allTask)
+    createTaskSubmit()
 
-    filterDay(day)
-
-    setReload(true)
-
+    renderTaskSubmit()
 
     return toast.success('Your task has been Successfully added', {
       position: "top-right",
@@ -129,213 +309,145 @@ const Home = () => {
 
   }
 
-  //DELETAR TASK SELECIONADA
-  function handleDeleteTask(id) {
-
-    setAllTask(allTask.filter(remove => remove.id !== id))
-
-    setCopyAllTask(copyAllTask.filter(remove => remove.id !== id));
-
-    return toast.warn('Heads up! You have deleted the selected task', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-  }
-
-  //DELETA TODAS AS TASK DE UMA VEZ SÓ
-  function handleAllDeleteTask() {
-
-    setAllTask(allTask.filter((remove) => !remove.id));
-
-    setCopyAllTask(copyAllTask.filter((remove) => !remove.id));
-
-    return toast.warn('Heads up! You just deleted ALL tasks from your Week Planner', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-
-  }
-
-  //ARMAZENAR AS TASK NO LOCALSTORAGE
-  useEffect(() => {
-    localStorage.setItem('db_task', JSON.stringify(allTask));
-
-  }, [allTask, copyAllTask])
-
-
-  const [selectDay, setSelectDay] = useState('Monday')
-
   //ORDENA CADA DIA DA SEMANA NO SEU FILTRO
-  function filterDay(number) {
+  function filterDay(selectWeek, taskAsync = false) {
 
-    setSelectDay(number)
+    console.log(selectWeek)
 
-    const results = allTask.filter((item) => 
-    item.group === number).sort((a,b) => a.date.localeCompare(b.date))
-    
-   setCopyAllTask(results)
+    const results = (taskAsync ? taskAsync : taskAPI).filter((item) =>
+      item.dayOfWeek === selectWeek)
 
+      setCopyAllTask(results)
+      setArrayWeek(selectWeek)
+     
+      console.log(results)
   }
-
-  useEffect(() => {
-
-    filterDay(selectDay)
-    setReload(false)
-
-  },[reload])
- 
 
   return (
 
-    <div >
+      <div >
+        <Navbar />
+          <ToastContainer />
 
-      <Navbar />
+          <div className={styles.container}>
+            <div className={styles.todo}>
+              {/* HEARDER DO TO DO LIST */}
+              <div className={styles.todoHeader}>
+                <div className={styles.allInput}>
+                  <input className={styles.inputTextHeader}
+                    placeholder='Task or issue'
+                    type="text"
+                    value={task}
+                    maxlength="102"
+                    onChange={(e) => setTask(e.target.value)}
+                  />
 
-      <ToastContainer />
-
-      <div className={styles.container}>
-
-        <div className={styles.todo}>
-
-          {/* HEARDER DO TO DO LIST */}
-          <div className={styles.todoHeader}>
-            <div className={styles.allInput}>
-
-              <input className={styles.inputTextHeader}
-                placeholder='Task or issue'
-                type="text"
-                value={task}
-                maxlength="102"
-                onChange={(e) => setTask(e.target.value)}
-              />
-
-              <select className={styles.inputDayHeader} value={day} onChange={(e) => setDay(e.target.value)} >
-                <option value='1'        ></option>
-                <option value='Monday'   >Monday</option>
-                <option value='Tuesday'  >Tuesday</option>
-                <option value='Wednesday'>Wednesday</option>
-                <option value='Thursday' >Thursday</option>
-                <option value='Friday'   >Friday</option>
-                <option value='Saturday' >Saturday</option>
-                <option value='Sunday'   >Sunday</option>
-              </select>
-
-              <input className={styles.inputTimeHeader}
-                type='time'
-                pattern="(?:[01]|2(?![4-9])){1}\d{1}:[0-5]{1}\d{1}"
-                value={hour}
-                onChange={(e) => setHour(e.target.value)}
-              />
-
-            </div>
-
-            <div className={styles.buttonHeader}>
-              <button className={styles.buttonAdd} 
-                onClick={handleCreateTask}>
-                  + Add to calendar
-              </button>
-              <button className={styles.buttonDeleteAll} 
-                onClick={() => handleAllDeleteTask(task.id)}>
-                  - Delete All
-              </button>
-            </div>
-          </div>
-
-          {/* FILTROS TO DO LIST */}
-          
-          <div className={styles.buttonFiltros}>
-            <button className={styles.buttonMonday} 
-              value='Monday' 
-              onClick={(e) => filterDay(e.target.value)} 
-            >
-              Monday
-            </button>
-            <button 
-              className={styles.buttonTuesday} 
-              value='Tuesday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Tuesday
-            </button>
-            <button className={styles.buttonWednesday} 
-              value='Wednesday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Wednesday
-            </button>
-            <button className={styles.buttonThursday} 
-              value='Thursday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Thursday
-            </button>
-            <button className={styles.buttonFriday} 
-              value='Friday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Friday
-            </button>
-            <button className={styles.buttonSaturday} 
-              value='Saturday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Saturday
-            </button>
-            <button className={styles.buttonSunday} 
-              value='Sunday' 
-              onClick={(e) => filterDay(e.target.value)}
-            >
-              Sunday
-            </button>
-          </div>
-
-
-          {/* SCROLL FILTRO*/}
-          {/* <div className={styles.scrollFilter}></div> */}
-
-          {/* TIME */}
-          <div className={styles.textTime}>
-            <p>Time</p>
-          </div>
-
-          {/* SCROLL TASK*/}
-          <div className={`${styles.scrollTask} ${styles.flipped}`}>
-
-            {/* TO DO LIST */}
-            {copyAllTask.map(task => {
-
-              return (<div key={task.id} className={styles.taskContainer}>
-                <DateColor taskDate={task.group}>
-                  <p>{task.date}</p>
-                </DateColor>
-                <div className={styles.task}>
-                  <TaskContainer taskDate={task.group}>
-                  <div className={styles.borderTask}></div>
-                  </TaskContainer>
-                  <span className={styles.taskTitle}>{task.title}</span>
-                  <div className={styles.buttonTask}>
-                    <button className={styles.buttonDeleteTask} onClick={() => handleDeleteTask(task.id)} >Delete</button>
-                  </div>
+                  <select className={styles.inputDayHeader} value={day} onChange={(e) => setDay(e.target.value)} >
+                    <option value='default'></option>
+                    <option value='monday'   >Monday</option>
+                    <option value='tuesday'  >Tuesday</option>
+                    <option value='wednesday'>Wednesday</option>
+                    <option value='thursday' >Thursday</option>
+                    <option value='friday'   >Friday</option>
+                    <option value='saturday' >Saturday</option>
+                    <option value='sunday'   >Sunday</option>
+                  </select>
                 </div>
-              </div>)
-            })}
 
+                <div className={styles.buttonHeader}>
+                  <button className={styles.buttonAdd} 
+                    onClick={handleCreateTask}>
+                      + Add to calendar
+                  </button>
+                  <button className={styles.buttonDeleteAll}
+                     onClick={() => deleteAllTaskSubmit (task.arrayWeek)}>
+                      - Delete All
+                  </button>
+                </div>
+              </div>
+
+              {/* FILTROS TO DO LIST */}
+              
+              <div className={styles.buttonFiltros}>
+                <button className={styles.buttonMonday} 
+                  value='monday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}} 
+                >
+                  Monday
+                </button>
+                <button 
+                  className={styles.buttonTuesday} 
+                  value='tuesday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Tuesday
+                </button>
+                <button className={styles.buttonWednesday} 
+                  value='wednesday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Wednesday
+                </button>
+                <button className={styles.buttonThursday} 
+                  value='thursday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Thursday
+                </button>
+                <button className={styles.buttonFriday} 
+                  value='friday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Friday
+                </button>
+                <button className={styles.buttonSaturday} 
+                  value='saturday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Saturday
+                </button>
+                <button className={styles.buttonSunday} 
+                  value='sunday' 
+                  onClick={(e) => {filterDay(e.target.value); setSelectDay(e.target.value)}}
+                >
+                  Sunday
+                </button>
+              </div>
+
+              {/* TIME */}
+              <div className={styles.textTime}>
+                <p>Time</p>
+              </div>
+
+              {/* SCROLL TASK*/}
+              <div className={`${styles.scrollTask} ${styles.flipped}`}>
+
+                {/* TO DO LIST */}
+                {copyAllTask.map(task => {
+    
+                  return (
+                  <>
+                    {showLoading && <Loading />}
+                      <div key={task._id} className={styles.taskContainer}>
+                        <DateColor taskDate={task.dayOfWeek}>
+                          <p>{task.createdAt.substring(11,16)}</p>
+                        </DateColor>
+                        <div className={styles.task}>
+                          <TaskContainer taskDate={task.dayOfWeek}>
+                          <div className={styles.borderTask}></div>
+                          </TaskContainer>
+                          <span className={styles.taskTitle}>{task.description}</span>
+                          <div className={styles.buttonTask}>
+                            <button className={styles.buttonDeleteTask} onClick={() => deleteSelectTaskSubmit(task._id)}>Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                  </>)
+                })}
+                  {showLoading && <Loading />}
+                </div>
             </div>
-        </div>
-      </div >
+          </div >
     </div >
   )
 }

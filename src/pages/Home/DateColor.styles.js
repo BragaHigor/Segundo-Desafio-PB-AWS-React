@@ -17,25 +17,25 @@ export const DateColor = styled.div`
 
         switch (props.taskDate) {
 
-            case 'Monday':
+            case 'monday':
                 return '#FF0024'
 
-            case 'Tuesday':
+            case 'tuesday':
                 return '#FF8000'
 
-            case 'Wednesday':
+            case 'wednesday':
                 return '#FFCE00'
 
-            case 'Thursday':
+            case 'thursday':
                 return '#fe4b65'
 
-            case 'Friday':
+            case 'friday':
                 return '#FDA54B'
 
-            case 'Saturday':
+            case 'saturday':
                 return '#FEDB4B'
 
-            case 'Sunday':
+            case 'sunday':
                 return '#FD7E8F'
         }
 
